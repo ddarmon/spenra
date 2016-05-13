@@ -1,0 +1,18 @@
+Package: spenra
+Title: SPecific Differential ENtropy RAte Estimation for Continuous-Valued Time
+    Series
+Version: 0.0.0.9000
+Date: 2016-05-13
+Authors@R: person("David", "Darmon", email = "david.m.darmon@gmail.com", role = c("aut", "cre"))
+Description: Estimates the specific entropy rate of a continuous-valued time
+    series considered as the realization of a stochastic dynamical system.
+Depends:
+    R (>= 3.1.3)
+License: GPL-2
+Imports:
+    forecast,
+    np,
+    pdc,
+    statmod
+LazyData: true
+RoxygenNote: 5.0.1
