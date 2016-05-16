@@ -1,5 +1,3 @@
-#' @import np
-
 #' Sentence-like Title for Function
 #' 
 #' Short description of what function does.
