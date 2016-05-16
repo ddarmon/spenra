@@ -6,8 +6,15 @@
 #' @param x A vector of values.
 #' @export
 
-uniformize = function(x){
-	x.transformed = (x - min(x, na.rm = TRUE))/(max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+uniformize = function(x, a = NA, b = NA){
+	if (is.na(a)){
+		a = min(x, na.rm = TRUE)
+	}
+	
+	if (is.na(b)){
+		b = min(x, na.rm = TRUE)
+	}
+	x.transformed = (x - a)/(b - a)
 	
 	return(x.transformed)
 }
