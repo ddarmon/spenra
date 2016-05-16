@@ -30,6 +30,10 @@ estimate.pred.dens = function(x, p, kerntype = 'gaussian', bwtype = 'fixed', bwm
 #' @export
 
 timeseries.entropyrate.lwo = function(x, pred.dens, half.window.length = 1){
+	if (2*half.window.length + 1 >= length(x)){
+		stop('The window size for the LWO estimation is larger than the time series. Choose a smaller window size.')
+	}
+	
 	p = length(pred.dens$xbw)
 
 	Xt = embed.ts(x, p+1)
@@ -64,6 +68,10 @@ timeseries.entropyrate.lwo = function(x, pred.dens, half.window.length = 1){
 #' @export
 
 choose.p.lwo = function(x, p.max, p.min = 1, half.window.length = 1, kerntype = 'gaussian', bwtype = 'fixed', bwmethod = 'cv.ml', bwuse = NA, nmulti = 1){
+	if (2*half.window.length + 1 >= length(x)){
+		stop('The window size for the LWO estimation is larger than the time series. Choose a smaller window size.')
+	}
+	
 	ps = seq(p.min, p.max, 1)
 
 	pred.dens.by.p = list()
@@ -148,7 +156,11 @@ spenra.integrand = function(future.vals, specific.past, pred.dens, loo.inds = NA
   return(entropy.integrand)
 }
 
-estimate.spenra = function(x, pred.dens, half.window.length, integral.lowerbound = -Inf, integral.upperbound = Inf){
+estimate.spenra = function(x, pred.dens, half.window.length, integral.lowerbound = -Inf, integral.upperbound = Inf, rel.tol = 0.01, subdivisions = 100L){
+	if (2*half.window.length + 1 >= length(x)){
+		stop('The window size for the LWO estimation is larger than the time series. Choose a smaller window size.')
+	}
+	
 	p = length(pred.dens$xbw)
 
 	Xt = embed.ts(x, p + 1)
@@ -160,7 +172,7 @@ estimate.spenra = function(x, pred.dens, half.window.length, integral.lowerbound
 		
 		specific.past = Xt[loo.ind, 1:p]
 		
-		spenras[p + loo.ind] = integrate(spenra.integrand, integral.lowerbound, integral.upperbound, rel.tol = 0.01, subdivisions = 1000, specific.past = specific.past, pred.dens = pred.dens, loo.inds = loo.inds)$value
+		spenras[p + loo.ind] = integrate(spenra.integrand, integral.lowerbound, integral.upperbound, rel.tol = rel.tol, subdivisions = subdivisions, specific.past = specific.past, pred.dens = pred.dens, loo.inds = loo.inds)$value
 	}
 	
 	return(spenras)
