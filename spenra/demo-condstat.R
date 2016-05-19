@@ -32,4 +32,5 @@ cat(sprintf('Estimating the SPecific ENtropy RAte (spenra)...\n\n'))
 estimate.spenra.out = estimate.spenra(condstat[1:N], choose.p.out$pred.dens, half.window.length = half.window.length, integral.lowerbound = -Inf, integral.upperbound = Inf)
 
 par(mar=c(5,7,2,1), cex.lab = 2, cex.axis = 2, mfrow = c(1, 1))
-plot(estimate.spenra.out, type = 'l', ylim = c(1.8, 2.7), xlab = 'Time (au)', ylab = expression(paste(widehat(italic(h))[italic(t)], ' (nats / symbol)')))
+plot(estimate.spenra.out, type = 'l', ylim = c(1.7, 2.7), xlab = 'Time (au)', ylab = expression(paste(widehat(italic(h))[italic(t)], ' (nats / symbol)')))
+abline(h = c(1.744021, 2.517551), col = 'blue', lty = 2, lwd = 3)
